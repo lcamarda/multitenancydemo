@@ -1,6 +1,7 @@
 resource "nsxt_policy_tier0_gateway" "vrf-blue" {
   description              = "VRF provisioned by Terraform"
   display_name             = "vrf-blue"
+  nsx_id                   = "vrf-blue"
   failover_mode            = "PREEMPTIVE"
   default_rule_logging     = false
   enable_firewall          = true

@@ -1,0 +1,1612 @@
+{
+	"info": {
+		"_postman_id": "4747e1b9-62ad-4c79-b1ef-84e81b6576ed",
+		"name": "Multi-Tenancy",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Set org_default_admin Role bindings",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"org_default_admin@corp.local\",\r\n    \"type\": \"remote_user\",\r\n    \"identity_source_type\": \"LDAP\",\r\n    \"identity_source_id\": \"ldap\",\r\n\t\"read_roles_for_paths\": true,\r\n\t\"roles_for_paths\": [\r\n    {\r\n      \"path\": \"/orgs/default\",\r\n      \"roles\": [\r\n        {\r\n          \"role\": \"org_admin\"\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/aaa/role-bindings",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"aaa",
+						"role-bindings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site_infos\": [\r\n        {\r\n            \"edge_cluster_paths\": [\r\n                \"/infra/sites/default/enforcement-points/default/edge-clusters/{{edge_cluster_id}}\"\r\n            ],\r\n            \"site_path\": \"/infra/sites/default\"\r\n        }\r\n    ],\r\n    \"tier_0s\": [\r\n        \"/infra/tier-0s/{{tier0_id}}\"\r\n    ],\r\n    \"resource_type\": \"Project\",\r\n    \"id\": \"Project1\",\r\n    \"display_name\": \"'Project1\",\r\n    \"path\": \"/orgs/default/projects/Project1\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project02",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "org_default_admin@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site_infos\": [\r\n        {\r\n            \"edge_cluster_paths\": [\r\n                \"/infra/sites/default/enforcement-points/default/edge-clusters/{{edge_cluster_id}}\"\r\n            ],\r\n            \"site_path\": \"/infra/sites/default\"\r\n        }\r\n    ],\r\n    \"tier_0s\": [\r\n        \"/infra/tier-0s/{{tier0_id}}\"\r\n    ],\r\n    \"resource_type\": \"Project\",\r\n    \"id\": \"Project2\",\r\n    \"display_name\": \"'Project2\",\r\n    \"path\": \"/orgs/default/projects/Project2\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project2",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List_projects",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site_infos\": [\r\n        {\r\n            \"edge_cluster_paths\": [\r\n                \"/infra/sites/default/enforcement-points/default/edge-clusters/361c8d67-50a3-4ad9-9ad7-68b3961383a3\"\r\n            ],\r\n            \"site_path\": \"/infra/sites/default\"\r\n        }\r\n    ],\r\n    \"tier_0s\": [\r\n        \"/infra/tier-0s/Tier0GatewayPepsi\"\r\n    ],\r\n    \"resource_type\": \"Project\",\r\n    \"id\": \"Project1\",\r\n    \"display_name\": \"'Project1\",\r\n    \"path\": \"/orgs/default/projects/Project1\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List shared objects in default ORG - all project n the org can use them",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/infra/shares/default/resources",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"infra",
+						"shares",
+						"default",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Share Tier0/EdgeCluster with ORG",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"display_name\": \"tier0ec\",\r\n  \"resource_objects\": [{\r\n    \"resource_path\": \"/infra/sites/default/enforcement-points/default/edge-clusters/{{edge_cluster_id}}\",\r\n    \"include_children\": false\r\n  },\r\n  {\r\n    \"resource_path\": \"/infra/tier-0s/{{tier0_id}}\",\r\n    \"include_children\": true\r\n  }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/infra/shares/default/resources/tier0ec",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"infra",
+						"shares",
+						"default",
+						"resources",
+						"tier0ec"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set project1_user Role bindings",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "org_default_admin@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"project1_user@corp.local\",\r\n    \"type\": \"remote_user\",\r\n    \"identity_source_type\": \"LDAP\",\r\n    \"identity_source_id\": \"ldap\",\r\n\t\"read_roles_for_paths\": true,\r\n\t\"roles_for_paths\": [\r\n    {\r\n      \"path\": \"/orgs/default/projects/Project1\",\r\n      \"roles\": [\r\n        {\r\n          \"role\": \"project_admin\"\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/aaa/role-bindings",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"aaa",
+						"role-bindings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Set project2_user Role bindings",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "org_default_admin@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"name\": \"project2_user@corp.local\",\r\n    \"type\": \"remote_user\",\r\n    \"identity_source_type\": \"LDAP\",\r\n    \"identity_source_id\": \"ldap\",\r\n\t\"read_roles_for_paths\": true,\r\n\t\"roles_for_paths\": [\r\n    {\r\n      \"path\": \"/orgs/default/projects/Project2\",\r\n      \"roles\": [\r\n        {\r\n          \"role\": \"project_admin\"\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/aaa/role-bindings",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"aaa",
+						"role-bindings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "List Role bindings",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site_infos\": [\r\n        {\r\n            \"edge_cluster_paths\": [\r\n                \"/infra/sites/default/enforcement-points/default/edge-clusters/361c8d67-50a3-4ad9-9ad7-68b3961383a3\"\r\n            ],\r\n            \"site_path\": \"/infra/sites/default\"\r\n        }\r\n    ],\r\n    \"tier_0s\": [\r\n        \"/infra/tier-0s/Tier0GatewayPepsi\"\r\n    ],\r\n    \"resource_type\": \"Project\",\r\n    \"id\": \"Project1\",\r\n    \"display_name\": \"'Project1\",\r\n    \"path\": \"/orgs/default/projects/Project1\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/api/v1/aaa/role-bindings",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"aaa",
+						"role-bindings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete role binding",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site_infos\": [\r\n        {\r\n            \"edge_cluster_paths\": [\r\n                \"/infra/sites/default/enforcement-points/default/edge-clusters/361c8d67-50a3-4ad9-9ad7-68b3961383a3\"\r\n            ],\r\n            \"site_path\": \"/infra/sites/default\"\r\n        }\r\n    ],\r\n    \"tier_0s\": [\r\n        \"/infra/tier-0s/Tier0GatewayPepsi\"\r\n    ],\r\n    \"resource_type\": \"Project\",\r\n    \"id\": \"Project1\",\r\n    \"display_name\": \"'Project1\",\r\n    \"path\": \"/orgs/default/projects/Project1\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/api/v1/aaa/role-bindings/777b15d9-1c03-4fa2-b255-e6a81e73d4ae",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"aaa",
+						"role-bindings",
+						"777b15d9-1c03-4fa2-b255-e6a81e73d4ae"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01_group",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"expression\": [\r\n      {\r\n        \"member_type\": \"VirtualMachine\",\r\n        \"value\": \"webvm\",\r\n        \"key\": \"Tag\",\r\n        \"operator\": \"EQUALS\",\r\n        \"resource_type\": \"Condition\"\r\n      }\r\n    ],\r\n    \"description\": \"project1_group\",\r\n    \"display_name\": \"project1_group\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/domains/default/groups/project1_group",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"domains",
+						"default",
+						"groups",
+						"project1_group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project02_group",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project2_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"expression\": [\r\n      {\r\n        \"member_type\": \"VirtualMachine\",\r\n        \"value\": \"webvm\",\r\n        \"key\": \"Tag\",\r\n        \"operator\": \"EQUALS\",\r\n        \"resource_type\": \"Condition\"\r\n      }\r\n    ],\r\n    \"description\": \"project2_group\",\r\n    \"display_name\": \"project2_group\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project2/infra/domains/default/groups/project2_group",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project2",
+						"infra",
+						"domains",
+						"default",
+						"groups",
+						"project2_group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01_security_policy",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"comm map patched\",\r\n    \"display_name\": \"application-section-1\",\r\n    \"category\": \"Application\",\r\n    \"rules\": [\r\n      {\r\n        \"description\": \"Access to Web Server\",\r\n        \"display_name\": \"ce-1\",\r\n        \"sequence_number\": 1,\r\n        \"source_groups\": [\r\n          \"ANY\"\r\n        ],\r\n        \"destination_groups\": [\r\n          \"/orgs/default/projects/Project1/infra/domains/default/groups/project1_group\"\r\n        ],\r\n        \"services\": [\r\n          \"/infra/services/HTTPS\",\r\n          \"/infra/services/ICMP-ALL\"\r\n        ],\r\n        \"action\": \"ALLOW\"\r\n      }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/domains/default/security-policies/application-section-1",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"domains",
+						"default",
+						"security-policies",
+						"application-section-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project02_security_policy",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project2_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"comm map patched\",\r\n    \"display_name\": \"application-section-2\",\r\n    \"category\": \"Application\",\r\n    \"rules\": [\r\n      {\r\n        \"description\": \"Access to Web Server\",\r\n        \"display_name\": \"ce-1\",\r\n        \"sequence_number\": 1,\r\n        \"source_groups\": [\r\n          \"ANY\"\r\n        ],\r\n        \"destination_groups\": [\r\n          \"/orgs/default/projects/Project2/infra/domains/default/groups/project2_group\"\r\n        ],\r\n        \"services\": [\r\n          \"/infra/services/HTTPS\",\r\n          \"/infra/services/ICMP-ALL\"\r\n        ],\r\n        \"action\": \"ALLOW\"\r\n      }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project2/infra/domains/default/security-policies/application-section-1",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project2",
+						"infra",
+						"domains",
+						"default",
+						"security-policies",
+						"application-section-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Share Group with ORG",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"display_name\": \"shared_group\",\r\n  \"resource_objects\": [{\r\n    \"resource_path\": \"/infra/domains/default/groups/shared_group\",\r\n    \"include_children\": false\r\n  }]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/infra/shares/default/resources/shared_group",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"infra",
+						"shares",
+						"default",
+						"resources",
+						"shared_group"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update_project01_security_policy_with_shared_group",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"comm map patched\",\r\n    \"display_name\": \"application-section-1\",\r\n    \"category\": \"Application\",\r\n    \"rules\": [\r\n      {\r\n        \"description\": \" comm entry\",\r\n        \"display_name\": \"ce-1\",\r\n        \"sequence_number\": 1,\r\n        \"source_groups\": [\r\n          \"/orgs/default/projects/Project1/infra/domains/default/groups/project1_group\"\r\n        ],\r\n        \"destination_groups\": [\r\n          \"/infra/domains/default/groups/shared_group\"\r\n        ],\r\n        \"services\": [\r\n          \"/infra/services/HTTP\",\r\n          \"/infra/services/CIM-HTTP\"\r\n        ],\r\n        \"action\": \"ALLOW\"\r\n      }\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/domains/default/security-policies/application-section-1",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"domains",
+						"default",
+						"security-policies",
+						"application-section-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01- T1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"tier0_path\": \"/infra/tier-0s/{{tier0_id}}\",\r\n    \"route_advertisement_types\": [\r\n        \"TIER1_NAT\"\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/tier-1s/p1-t1-01",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"tier-1s",
+						"p1-t1-01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01- T1-Locale Service",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"edge_cluster_path\": \"/infra/sites/default/enforcement-points/default/edge-clusters/{{edge_cluster_id}}\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/tier-1s/p1-t1-01/locale-services/default",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"tier-1s",
+						"p1-t1-01",
+						"locale-services",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01- Web Segment",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"display_name\":\"p1-web-tier\",\r\n    \"subnets\": [\r\n      {\r\n        \"gateway_address\": \"172.16.10.1/24\"\r\n      }\r\n    ],\r\n    \"connectivity_path\": \"/orgs/default/projects/Project1/infra/tier-1s/p1-t1-01\"\r\n  }"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/segments/p1-web-tier",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"segments",
+						"p1-web-tier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01- DB Segment",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"display_name\":\"p1-db-tier\",\r\n    \"subnets\": [\r\n      {\r\n        \"gateway_address\": \"172.16.20.1/24\"\r\n      }\r\n    ],\r\n    \"connectivity_path\": \"/orgs/default/projects/Project1/infra/tier-1s/p1-t1-01\"\r\n  }"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/segments/p1-db-tier",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"segments",
+						"p1-db-tier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01- DNAT for WEB VM",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"display_name\" : \"DNAT WEB VM\",\r\n   \"action\" : \"DNAT\",\r\n   \"destination_network\" : \"88.88.88.89\",\r\n   \"translated_network\" : \"172.16.10.11\",\r\n   \"enabled\" : true,\r\n   \"logging\" : false,\r\n   \"firewall_match\" : \"MATCH_EXTERNAL_ADDRESS\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/tier-1s/p1-t1-01/nat/USER/nat-rules/DNATwebVM",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"tier-1s",
+						"p1-t1-01",
+						"nat",
+						"USER",
+						"nat-rules",
+						"DNATwebVM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Segments for project 1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"display_name\":\"app-tier\",\r\n    \"subnets\": [\r\n      {\r\n        \"gateway_address\": \"172.16.20.1/24\"\r\n      }\r\n    ],\r\n    \"connectivity_path\": \"/orgs/default/projects/Project1/infra/tier-1s/p1-t1-01\"\r\n  }"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/segments/",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"segments",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get ORG root tree",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"site_infos\": [\r\n        {\r\n            \"edge_cluster_paths\": [\r\n                \"/infra/sites/default/enforcement-points/default/edge-clusters/361c8d67-50a3-4ad9-9ad7-68b3961383a3\"\r\n            ],\r\n            \"site_path\": \"/infra/sites/default\"\r\n        }\r\n    ],\r\n    \"tier_0s\": [\r\n        \"/infra/tier-0s/Tier0GatewayPepsi\"\r\n    ],\r\n    \"resource_type\": \"Project\",\r\n    \"id\": \"Project1\",\r\n    \"display_name\": \"'Project1\",\r\n    \"path\": \"/orgs/default/projects/Project1\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/org-root?base_path=/orgs/default",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"org-root"
+					],
+					"query": [
+						{
+							"key": "base_path",
+							"value": "/orgs/default"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01-segment connected to T0",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"display_name\":\"p1-t0-shared-services\",\r\n    \"subnets\": [\r\n      {\r\n        \"gateway_address\": \"172.16.40.1/24\"\r\n      }\r\n    ],\r\n    \"connectivity_path\": \"/infra/tier-0s/{{tier0_id}}\"\r\n  }"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/segments/p1-t0-shared-services",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"segments",
+						"p1-t0-shared-services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project02- T1",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project2_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"tier0_path\":  \"/infra/tier-0s/{{tier0_id}}\",\r\n  \"route_advertisement_types\": [\r\n        \"TIER1_NAT\"\r\n    ]\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project2/infra/tier-1s/p2-t1-01",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project2",
+						"infra",
+						"tier-1s",
+						"p2-t1-01"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project02- T1-Locale Service",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project2_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"edge_cluster_path\": \"/infra/sites/default/enforcement-points/default/edge-clusters/{{edge_cluster_id}}\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project2/infra/tier-1s/p2-t1-01/locale-services/default",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project2",
+						"infra",
+						"tier-1s",
+						"p2-t1-01",
+						"locale-services",
+						"default"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project02- Web Segment",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project2_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"display_name\":\"p2-web-tier\",\r\n    \"subnets\": [\r\n      {\r\n        \"gateway_address\": \"172.16.10.1/24\"\r\n      }\r\n    ],\r\n    \"connectivity_path\": \"/orgs/default/projects/Project2/infra/tier-1s/p2-t1-01\"\r\n  }"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project2/infra/segments/p2-web-tier",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project2",
+						"infra",
+						"segments",
+						"p2-web-tier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project02- DB Segment",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project2_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"display_name\":\"p2-db-tier\",\r\n    \"subnets\": [\r\n      {\r\n        \"gateway_address\": \"172.16.20.1/24\"\r\n      }\r\n    ],\r\n    \"connectivity_path\": \"/orgs/default/projects/Project2/infra/tier-1s/p2-t1-01\"\r\n  }"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project2/infra/segments/p2-db-tier",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project2",
+						"infra",
+						"segments",
+						"p2-db-tier"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project02- DNAT for WEB VM",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project2_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"display_name\" : \"DNAT WEB VM\",\r\n   \"action\" : \"DNAT\",\r\n   \"destination_network\" : \"88.88.88.90\",\r\n   \"translated_network\" : \"172.16.10.11\",\r\n   \"enabled\" : true,\r\n   \"logging\" : false,\r\n   \"firewall_match\" : \"MATCH_EXTERNAL_ADDRESS\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project2/infra/tier-1s/p2-t1-01/nat/USER/nat-rules/DNATwebVM",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project2",
+						"infra",
+						"tier-1s",
+						"p2-t1-01",
+						"nat",
+						"USER",
+						"nat-rules",
+						"DNATwebVM"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create_project01_group2_with_static_memebers_VMs",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "project1_user@corp.local",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "VMware1!",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"expression\": [\r\n        {\r\n            \"member_type\": \"VirtualMachine\",\r\n            \"external_ids\": [\r\n                \"500265ca-02a5-50e1-de1e-ddb007793c06\",\r\n                \"50024f3a-72e5-c600-548e-21530edfe827\"\r\n            ],\r\n            \"resource_type\": \"ExternalIDExpression\",\r\n            \"marked_for_delete\": false,\r\n            \"overridden\": false\r\n        }\r\n    ],\r\n    \"description\": \"project1_group-2\",\r\n    \"display_name\": \"project1_group-2\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/orgs/default/projects/Project1/infra/domains/default/groups/project1_group-2",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"orgs",
+						"default",
+						"projects",
+						"Project1",
+						"infra",
+						"domains",
+						"default",
+						"groups",
+						"project1_group-2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HAPI",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "VMware1!VMware1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"resource_type\": \"OrgRoot\",\r\n    \"children\": [\r\n        {\r\n            \"resource_type\": \"ChildResourceReference\",\r\n            \"id\": \"default\",\r\n            \"target_type\": \"Org\",\r\n            \"children\": [\r\n                {\r\n                    \"Project\": {\r\n                        \"site_infos\": [\r\n                            {\r\n                                \"edge_cluster_paths\": [\r\n                                    \"/infra/sites/default/enforcement-points/default/edge-clusters/{{edge_cluster_id}}\"\r\n                                ],\r\n                                \"site_path\": \"/infra/sites/default\"\r\n                            }\r\n                        ],\r\n                        \"tier_0s\": [\r\n                            \"/infra/tier-0s/{{tier0_id}}\"\r\n                        ],\r\n                        \"resource_type\": \"Project\",\r\n                        \"id\": \"Project1\",\r\n                        \"display_name\": \"'Project1\",\r\n                        \"path\": \"/orgs/default/projects/Project1\",\r\n                        \"relative_path\": \"Project1\",\r\n                        \"parent_path\": \"/orgs/default\",\r\n                        \"unique_id\": \"4edf5b68-9ff6-4e48-83af-9275588073aa\",\r\n                        \"realization_id\": \"4edf5b68-9ff6-4e48-83af-9275588073aa\",\r\n                        \"children\": [\r\n                            {\r\n                                \"Infra\": {\r\n                                    \"resource_type\": \"Infra\",\r\n                                    \"id\": \"infra\",\r\n                                    \"display_name\": \"infra\",\r\n                                    \"path\": \"/orgs/default/projects/Project1/infra\",\r\n                                    \"relative_path\": \"infra\",\r\n                                    \"parent_path\": \"/orgs/default/projects/Project1\",\r\n                                    \"unique_id\": \"d4874433-e1c7-4959-87f7-0d79a4118a53\",\r\n                                    \"realization_id\": \"d4874433-e1c7-4959-87f7-0d79a4118a53\",\r\n                                    \"children\": [\r\n                                        {\r\n                                            \"Domain\": {\r\n                                                \"resource_type\": \"Domain\",\r\n                                                \"id\": \"default\",\r\n                                                \"display_name\": \"default\",\r\n                                                \"path\": \"/orgs/default/projects/Project1/infra/domains/default\",\r\n                                                \"relative_path\": \"default\",\r\n                                                \"parent_path\": \"/orgs/default/projects/Project1/infra\",\r\n                                                \"unique_id\": \"b21ce475-2dda-45fd-be57-d2e7d762d2b1\",\r\n                                                \"realization_id\": \"b21ce475-2dda-45fd-be57-d2e7d762d2b1\",\r\n                                                \"children\": [\r\n                                                    {\r\n                                                        \"Group\": {\r\n                                                            \"expression\": [\r\n                                                                {\r\n                                                                    \"scope_type\": \"PROJECT\",\r\n                                                                    \"scope_path\": \"/orgs/default/projects/Project1\",\r\n                                                                    \"resource_type\": \"GroupScopeExpression\",\r\n                                                                    \"id\": \"8090160b-20f9-467d-b086-17efd6d44318\",\r\n                                                                    \"path\": \"/orgs/default/projects/Project1/infra/domains/default/groups/default/scope-association-expressions/8090160b-20f9-467d-b086-17efd6d44318\",\r\n                                                                    \"relative_path\": \"8090160b-20f9-467d-b086-17efd6d44318\",\r\n                                                                    \"parent_path\": \"/orgs/default/projects/Project1/infra/domains/default/groups/default\",\r\n                                                                    \"marked_for_delete\": false,\r\n                                                                    \"overridden\": false,\r\n                                                                    \"_protection\": \"NOT_PROTECTED\"\r\n                                                                }\r\n                                                            ],\r\n                                                            \"extended_expression\": [],\r\n                                                            \"reference\": false,\r\n                                                            \"has_change_restrictions\": false,\r\n                                                            \"effective_member_types\": [\r\n                                                                \"Segment\"\r\n                                                            ],\r\n                                                            \"resource_type\": \"Group\",\r\n                                                            \"id\": \"default\",\r\n                                                            \"display_name\": \"ORG-default-PROJECT-Project1-default\",\r\n                                                            \"description\": \"Group to represent the Project\",\r\n                                                            \"path\": \"/orgs/default/projects/Project1/infra/domains/default/groups/default\",\r\n                                                            \"relative_path\": \"default\",\r\n                                                            \"parent_path\": \"/orgs/default/projects/Project1/infra/domains/default\",\r\n                                                            \"unique_id\": \"97539625-59a3-4fda-8db3-61e00b62b313\",\r\n                                                            \"realization_id\": \"97539625-59a3-4fda-8db3-61e00b62b313\",\r\n                                                            \"children\": [],\r\n                                                            \"marked_for_delete\": false,\r\n                                                            \"overridden\": false,\r\n                                                            \"_create_time\": 1663015048521,\r\n                                                            \"_create_user\": \"admin\",\r\n                                                            \"_last_modified_time\": 1663015048521,\r\n                                                            \"_last_modified_user\": \"admin\",\r\n                                                            \"_system_owned\": true,\r\n                                                            \"_protection\": \"NOT_PROTECTED\",\r\n                                                            \"_revision\": 0\r\n                                                        },\r\n                                                        \"resource_type\": \"ChildGroup\",\r\n                                                        \"id\": \"default\",\r\n                                                        \"marked_for_delete\": false,\r\n                                                        \"mark_for_override\": false,\r\n                                                        \"_protection\": \"NOT_PROTECTED\"\r\n                                                    },\r\n                                                    {\r\n                                                        \"SecurityPolicy\": {\r\n                                                            \"logging_enabled\": false,\r\n                                                            \"resource_type\": \"SecurityPolicy\",\r\n                                                            \"id\": \"default-layer3-section\",\r\n                                                            \"display_name\": \"ORG-default PROJECT-Project1 Default Layer3 Section\",\r\n                                                            \"path\": \"/orgs/default/projects/Project1/infra/domains/default/security-policies/default-layer3-section\",\r\n                                                            \"relative_path\": \"default-layer3-section\",\r\n                                                            \"parent_path\": \"/orgs/default/projects/Project1/infra/domains/default\",\r\n                                                            \"unique_id\": \"29cff369-2c1e-4001-8309-231d8256a61a\",\r\n                                                            \"realization_id\": \"29cff369-2c1e-4001-8309-231d8256a61a\",\r\n                                                            \"children\": [\r\n                                                                {\r\n                                                                    \"Rule\": {\r\n                                                                        \"action\": \"ALLOW\",\r\n                                                                        \"resource_type\": \"Rule\",\r\n                                                                        \"id\": \"default-rule-allow\",\r\n                                                                        \"display_name\": \"ORG-default PROJECT-/orgs/default/projects/Project1 Default Rule Allow\",\r\n                                                                        \"path\": \"/orgs/default/projects/Project1/infra/domains/default/security-policies/default-layer3-section/rules/default-rule-allow\",\r\n                                                                        \"relative_path\": \"default-rule-allow\",\r\n                                                                        \"parent_path\": \"/orgs/default/projects/Project1/infra/domains/default/security-policies/default-layer3-section\",\r\n                                                                        \"unique_id\": \"00000000-0000-0000-0000-000000001023\",\r\n                                                                        \"realization_id\": \"00000000-0000-0000-0000-000000001023\",\r\n                                                                        \"children\": [],\r\n                                                                        \"marked_for_delete\": false,\r\n                                                                        \"overridden\": false,\r\n                                                                        \"rule_id\": 1023,\r\n                                                                        \"sequence_number\": 2147483647,\r\n                                                                        \"sources_excluded\": false,\r\n                                                                        \"destinations_excluded\": false,\r\n                                                                        \"source_groups\": [\r\n                                                                            \"/orgs/default/projects/Project1/infra/domains/default/groups/default\"\r\n                                                                        ],\r\n                                                                        \"destination_groups\": [\r\n                                                                            \"/orgs/default/projects/Project1/infra/domains/default/groups/default\"\r\n                                                                        ],\r\n                                                                        \"services\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"profiles\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"logged\": false,\r\n                                                                        \"scope\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"disabled\": false,\r\n                                                                        \"direction\": \"IN_OUT\",\r\n                                                                        \"ip_protocol\": \"IPV4_IPV6\",\r\n                                                                        \"is_default\": true,\r\n                                                                        \"_create_time\": 1663015048573,\r\n                                                                        \"_create_user\": \"admin\",\r\n                                                                        \"_last_modified_time\": 1663015048573,\r\n                                                                        \"_last_modified_user\": \"admin\",\r\n                                                                        \"_system_owned\": true,\r\n                                                                        \"_protection\": \"NOT_PROTECTED\",\r\n                                                                        \"_revision\": 0\r\n                                                                    },\r\n                                                                    \"resource_type\": \"ChildRule\",\r\n                                                                    \"id\": \"default-rule-allow\",\r\n                                                                    \"marked_for_delete\": false,\r\n                                                                    \"mark_for_override\": false,\r\n                                                                    \"_protection\": \"NOT_PROTECTED\"\r\n                                                                },\r\n                                                                {\r\n                                                                    \"Rule\": {\r\n                                                                        \"action\": \"ALLOW\",\r\n                                                                        \"resource_type\": \"Rule\",\r\n                                                                        \"id\": \"default-dhcp-rule-allow\",\r\n                                                                        \"display_name\": \"ORG-default PROJECT-/orgs/default/projects/Project1 Default Dhcp Rule Allow\",\r\n                                                                        \"path\": \"/orgs/default/projects/Project1/infra/domains/default/security-policies/default-layer3-section/rules/default-dhcp-rule-allow\",\r\n                                                                        \"relative_path\": \"default-dhcp-rule-allow\",\r\n                                                                        \"parent_path\": \"/orgs/default/projects/Project1/infra/domains/default/security-policies/default-layer3-section\",\r\n                                                                        \"unique_id\": \"00000000-0000-0000-0000-000000001022\",\r\n                                                                        \"realization_id\": \"00000000-0000-0000-0000-000000001022\",\r\n                                                                        \"children\": [],\r\n                                                                        \"marked_for_delete\": false,\r\n                                                                        \"overridden\": false,\r\n                                                                        \"rule_id\": 1022,\r\n                                                                        \"sequence_number\": 2147483647,\r\n                                                                        \"sources_excluded\": false,\r\n                                                                        \"destinations_excluded\": false,\r\n                                                                        \"source_groups\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"destination_groups\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"services\": [\r\n                                                                            \"/infra/services/DHCP-Client\",\r\n                                                                            \"/infra/services/DHCP-Server\"\r\n                                                                        ],\r\n                                                                        \"profiles\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"logged\": false,\r\n                                                                        \"scope\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"disabled\": false,\r\n                                                                        \"direction\": \"IN_OUT\",\r\n                                                                        \"ip_protocol\": \"IPV4_IPV6\",\r\n                                                                        \"is_default\": true,\r\n                                                                        \"_create_time\": 1663015048545,\r\n                                                                        \"_create_user\": \"admin\",\r\n                                                                        \"_last_modified_time\": 1663015048545,\r\n                                                                        \"_last_modified_user\": \"admin\",\r\n                                                                        \"_system_owned\": true,\r\n                                                                        \"_protection\": \"NOT_PROTECTED\",\r\n                                                                        \"_revision\": 0\r\n                                                                    },\r\n                                                                    \"resource_type\": \"ChildRule\",\r\n                                                                    \"id\": \"default-dhcp-rule-allow\",\r\n                                                                    \"marked_for_delete\": false,\r\n                                                                    \"mark_for_override\": false,\r\n                                                                    \"_protection\": \"NOT_PROTECTED\"\r\n                                                                },\r\n                                                                {\r\n                                                                    \"Rule\": {\r\n                                                                        \"action\": \"DROP\",\r\n                                                                        \"resource_type\": \"Rule\",\r\n                                                                        \"id\": \"default-rule-drop\",\r\n                                                                        \"display_name\": \"ORG-default PROJECT-/orgs/default/projects/Project1 Default Rule Drop\",\r\n                                                                        \"path\": \"/orgs/default/projects/Project1/infra/domains/default/security-policies/default-layer3-section/rules/default-rule-drop\",\r\n                                                                        \"relative_path\": \"default-rule-drop\",\r\n                                                                        \"parent_path\": \"/orgs/default/projects/Project1/infra/domains/default/security-policies/default-layer3-section\",\r\n                                                                        \"unique_id\": \"00000000-0000-0000-0000-000000001024\",\r\n                                                                        \"realization_id\": \"00000000-0000-0000-0000-000000001024\",\r\n                                                                        \"children\": [],\r\n                                                                        \"marked_for_delete\": false,\r\n                                                                        \"overridden\": false,\r\n                                                                        \"rule_id\": 1024,\r\n                                                                        \"sequence_number\": 2147483647,\r\n                                                                        \"sources_excluded\": false,\r\n                                                                        \"destinations_excluded\": false,\r\n                                                                        \"source_groups\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"destination_groups\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"services\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"profiles\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"logged\": false,\r\n                                                                        \"scope\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"disabled\": false,\r\n                                                                        \"direction\": \"IN_OUT\",\r\n                                                                        \"ip_protocol\": \"IPV4_IPV6\",\r\n                                                                        \"is_default\": true,\r\n                                                                        \"_create_time\": 1663015048577,\r\n                                                                        \"_create_user\": \"admin\",\r\n                                                                        \"_last_modified_time\": 1663015048577,\r\n                                                                        \"_last_modified_user\": \"admin\",\r\n                                                                        \"_system_owned\": true,\r\n                                                                        \"_protection\": \"NOT_PROTECTED\",\r\n                                                                        \"_revision\": 0\r\n                                                                    },\r\n                                                                    \"resource_type\": \"ChildRule\",\r\n                                                                    \"id\": \"default-rule-drop\",\r\n                                                                    \"marked_for_delete\": false,\r\n                                                                    \"mark_for_override\": false,\r\n                                                                    \"_protection\": \"NOT_PROTECTED\"\r\n                                                                }\r\n                                                            ],\r\n                                                            \"marked_for_delete\": false,\r\n                                                            \"overridden\": false,\r\n                                                            \"sequence_number\": 2147483647,\r\n                                                            \"internal_sequence_number\": 2147483647,\r\n                                                            \"category\": \"Application\",\r\n                                                            \"stateful\": true,\r\n                                                            \"tcp_strict\": false,\r\n                                                            \"locked\": false,\r\n                                                            \"lock_modified_time\": 0,\r\n                                                            \"scope\": [\r\n                                                                \"ANY\"\r\n                                                            ],\r\n                                                            \"is_default\": true,\r\n                                                            \"_create_time\": 1663015048528,\r\n                                                            \"_create_user\": \"admin\",\r\n                                                            \"_last_modified_time\": 1663015048528,\r\n                                                            \"_last_modified_user\": \"admin\",\r\n                                                            \"_system_owned\": true,\r\n                                                            \"_protection\": \"NOT_PROTECTED\",\r\n                                                            \"_revision\": 0\r\n                                                        },\r\n                                                        \"resource_type\": \"ChildSecurityPolicy\",\r\n                                                        \"id\": \"default-layer3-section\",\r\n                                                        \"marked_for_delete\": false,\r\n                                                        \"mark_for_override\": false,\r\n                                                        \"_protection\": \"NOT_PROTECTED\"\r\n                                                    }\r\n                                                ],\r\n                                                \"marked_for_delete\": false,\r\n                                                \"overridden\": false,\r\n                                                \"_create_time\": 1663015048504,\r\n                                                \"_create_user\": \"admin\",\r\n                                                \"_last_modified_time\": 1663015048504,\r\n                                                \"_last_modified_user\": \"admin\",\r\n                                                \"_system_owned\": true,\r\n                                                \"_protection\": \"NOT_PROTECTED\",\r\n                                                \"_revision\": 0\r\n                                            },\r\n                                            \"resource_type\": \"ChildDomain\",\r\n                                            \"id\": \"default\",\r\n                                            \"marked_for_delete\": false,\r\n                                            \"mark_for_override\": false,\r\n                                            \"_protection\": \"NOT_PROTECTED\"\r\n                                        }\r\n                                    ],\r\n                                    \"marked_for_delete\": false,\r\n                                    \"overridden\": false,\r\n                                    \"connectivity_strategy\": \"WHITELIST\",\r\n                                    \"_create_time\": 1663015048493,\r\n                                    \"_create_user\": \"admin\",\r\n                                    \"_last_modified_time\": 1663015048493,\r\n                                    \"_last_modified_user\": \"admin\",\r\n                                    \"_system_owned\": true,\r\n                                    \"_protection\": \"NOT_PROTECTED\",\r\n                                    \"_revision\": 0\r\n                                },\r\n                                \"resource_type\": \"ChildInfra\",\r\n                                \"id\": \"infra\",\r\n                                \"marked_for_delete\": false,\r\n                                \"mark_for_override\": false,\r\n                                \"_protection\": \"NOT_PROTECTED\"\r\n                            }\r\n                        ],\r\n                        \"marked_for_delete\": false,\r\n                        \"overridden\": false,\r\n                        \"_create_time\": 1663015048489,\r\n                        \"_create_user\": \"admin\",\r\n                        \"_last_modified_time\": 1663015048489,\r\n                        \"_last_modified_user\": \"admin\",\r\n                        \"_system_owned\": false,\r\n                        \"_protection\": \"NOT_PROTECTED\",\r\n                        \"_revision\": 0\r\n                    },\r\n                    \"resource_type\": \"ChildProject\",\r\n                    \"id\": \"Project1\",\r\n                    \"marked_for_delete\": false,\r\n                    \"mark_for_override\": false,\r\n                    \"_protection\": \"NOT_PROTECTED\"\r\n                },\r\n                {\r\n                    \"Project\": {\r\n                        \"site_infos\": [\r\n                            {\r\n                                \"edge_cluster_paths\": [\r\n                                    \"/infra/sites/default/enforcement-points/default/edge-clusters/{{edge_cluster_id}}\"\r\n                                ],\r\n                                \"site_path\": \"/infra/sites/default\"\r\n                            }\r\n                        ],\r\n                        \"tier_0s\": [\r\n                            \"/infra/tier-0s/{{tier0_id}}\"\r\n                        ],\r\n                        \"resource_type\": \"Project\",\r\n                        \"id\": \"Project2\",\r\n                        \"display_name\": \"'Project2\",\r\n                        \"path\": \"/orgs/default/projects/Project2\",\r\n                        \"relative_path\": \"Project2\",\r\n                        \"parent_path\": \"/orgs/default\",\r\n                        \"unique_id\": \"9b55ea4a-c3d3-4a22-b456-67654aabb237\",\r\n                        \"realization_id\": \"9b55ea4a-c3d3-4a22-b456-67654aabb237\",\r\n                        \"children\": [\r\n                            {\r\n                                \"Infra\": {\r\n                                    \"resource_type\": \"Infra\",\r\n                                    \"id\": \"infra\",\r\n                                    \"display_name\": \"infra\",\r\n                                    \"path\": \"/orgs/default/projects/Project2/infra\",\r\n                                    \"relative_path\": \"infra\",\r\n                                    \"parent_path\": \"/orgs/default/projects/Project2\",\r\n                                    \"unique_id\": \"d5efc24d-de56-4aff-ac6c-b9218baf3faa\",\r\n                                    \"realization_id\": \"d5efc24d-de56-4aff-ac6c-b9218baf3faa\",\r\n                                    \"children\": [\r\n                                        {\r\n                                            \"Domain\": {\r\n                                                \"resource_type\": \"Domain\",\r\n                                                \"id\": \"default\",\r\n                                                \"display_name\": \"default\",\r\n                                                \"path\": \"/orgs/default/projects/Project2/infra/domains/default\",\r\n                                                \"relative_path\": \"default\",\r\n                                                \"parent_path\": \"/orgs/default/projects/Project2/infra\",\r\n                                                \"unique_id\": \"ff510f84-966b-4b4e-a151-bf31b147ca33\",\r\n                                                \"realization_id\": \"ff510f84-966b-4b4e-a151-bf31b147ca33\",\r\n                                                \"children\": [\r\n                                                    {\r\n                                                        \"Group\": {\r\n                                                            \"expression\": [\r\n                                                                {\r\n                                                                    \"scope_type\": \"PROJECT\",\r\n                                                                    \"scope_path\": \"/orgs/default/projects/Project2\",\r\n                                                                    \"resource_type\": \"GroupScopeExpression\",\r\n                                                                    \"id\": \"ffa75a42-d991-4623-821e-78b4943ea4b9\",\r\n                                                                    \"path\": \"/orgs/default/projects/Project2/infra/domains/default/groups/default/scope-association-expressions/ffa75a42-d991-4623-821e-78b4943ea4b9\",\r\n                                                                    \"relative_path\": \"ffa75a42-d991-4623-821e-78b4943ea4b9\",\r\n                                                                    \"parent_path\": \"/orgs/default/projects/Project2/infra/domains/default/groups/default\",\r\n                                                                    \"marked_for_delete\": false,\r\n                                                                    \"overridden\": false,\r\n                                                                    \"_protection\": \"NOT_PROTECTED\"\r\n                                                                }\r\n                                                            ],\r\n                                                            \"extended_expression\": [],\r\n                                                            \"reference\": false,\r\n                                                            \"has_change_restrictions\": false,\r\n                                                            \"effective_member_types\": [\r\n                                                                \"Segment\"\r\n                                                            ],\r\n                                                            \"resource_type\": \"Group\",\r\n                                                            \"id\": \"default\",\r\n                                                            \"display_name\": \"ORG-default-PROJECT-Project2-default\",\r\n                                                            \"description\": \"Group to represent the Project\",\r\n                                                            \"path\": \"/orgs/default/projects/Project2/infra/domains/default/groups/default\",\r\n                                                            \"relative_path\": \"default\",\r\n                                                            \"parent_path\": \"/orgs/default/projects/Project2/infra/domains/default\",\r\n                                                            \"unique_id\": \"5155f99f-4c03-4a78-a276-f4c32a43e9fd\",\r\n                                                            \"realization_id\": \"5155f99f-4c03-4a78-a276-f4c32a43e9fd\",\r\n                                                            \"children\": [],\r\n                                                            \"marked_for_delete\": false,\r\n                                                            \"overridden\": false,\r\n                                                            \"_create_time\": 1663015096170,\r\n                                                            \"_create_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                            \"_last_modified_time\": 1663015096170,\r\n                                                            \"_last_modified_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                            \"_system_owned\": true,\r\n                                                            \"_protection\": \"NOT_PROTECTED\",\r\n                                                            \"_revision\": 0\r\n                                                        },\r\n                                                        \"resource_type\": \"ChildGroup\",\r\n                                                        \"id\": \"default\",\r\n                                                        \"marked_for_delete\": false,\r\n                                                        \"mark_for_override\": false,\r\n                                                        \"_protection\": \"NOT_PROTECTED\"\r\n                                                    },\r\n                                                    {\r\n                                                        \"SecurityPolicy\": {\r\n                                                            \"logging_enabled\": false,\r\n                                                            \"resource_type\": \"SecurityPolicy\",\r\n                                                            \"id\": \"default-layer3-section\",\r\n                                                            \"display_name\": \"ORG-default PROJECT-Project2 Default Layer3 Section\",\r\n                                                            \"path\": \"/orgs/default/projects/Project2/infra/domains/default/security-policies/default-layer3-section\",\r\n                                                            \"relative_path\": \"default-layer3-section\",\r\n                                                            \"parent_path\": \"/orgs/default/projects/Project2/infra/domains/default\",\r\n                                                            \"unique_id\": \"03bbb74b-3e2f-4bc4-b023-d3b8e1270a9b\",\r\n                                                            \"realization_id\": \"03bbb74b-3e2f-4bc4-b023-d3b8e1270a9b\",\r\n                                                            \"children\": [\r\n                                                                {\r\n                                                                    \"Rule\": {\r\n                                                                        \"action\": \"ALLOW\",\r\n                                                                        \"resource_type\": \"Rule\",\r\n                                                                        \"id\": \"default-dhcp-rule-allow\",\r\n                                                                        \"display_name\": \"ORG-default PROJECT-/orgs/default/projects/Project2 Default Dhcp Rule Allow\",\r\n                                                                        \"path\": \"/orgs/default/projects/Project2/infra/domains/default/security-policies/default-layer3-section/rules/default-dhcp-rule-allow\",\r\n                                                                        \"relative_path\": \"default-dhcp-rule-allow\",\r\n                                                                        \"parent_path\": \"/orgs/default/projects/Project2/infra/domains/default/security-policies/default-layer3-section\",\r\n                                                                        \"unique_id\": \"00000000-0000-0000-0000-000000001025\",\r\n                                                                        \"realization_id\": \"00000000-0000-0000-0000-000000001025\",\r\n                                                                        \"children\": [],\r\n                                                                        \"marked_for_delete\": false,\r\n                                                                        \"overridden\": false,\r\n                                                                        \"rule_id\": 1025,\r\n                                                                        \"sequence_number\": 2147483647,\r\n                                                                        \"sources_excluded\": false,\r\n                                                                        \"destinations_excluded\": false,\r\n                                                                        \"source_groups\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"destination_groups\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"services\": [\r\n                                                                            \"/infra/services/DHCP-Client\",\r\n                                                                            \"/infra/services/DHCP-Server\"\r\n                                                                        ],\r\n                                                                        \"profiles\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"logged\": false,\r\n                                                                        \"scope\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"disabled\": false,\r\n                                                                        \"direction\": \"IN_OUT\",\r\n                                                                        \"ip_protocol\": \"IPV4_IPV6\",\r\n                                                                        \"is_default\": true,\r\n                                                                        \"_create_time\": 1663015096190,\r\n                                                                        \"_create_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                                        \"_last_modified_time\": 1663015096190,\r\n                                                                        \"_last_modified_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                                        \"_system_owned\": true,\r\n                                                                        \"_protection\": \"NOT_PROTECTED\",\r\n                                                                        \"_revision\": 0\r\n                                                                    },\r\n                                                                    \"resource_type\": \"ChildRule\",\r\n                                                                    \"id\": \"default-dhcp-rule-allow\",\r\n                                                                    \"marked_for_delete\": false,\r\n                                                                    \"mark_for_override\": false,\r\n                                                                    \"_protection\": \"NOT_PROTECTED\"\r\n                                                                },\r\n                                                                {\r\n                                                                    \"Rule\": {\r\n                                                                        \"action\": \"ALLOW\",\r\n                                                                        \"resource_type\": \"Rule\",\r\n                                                                        \"id\": \"default-rule-allow\",\r\n                                                                        \"display_name\": \"ORG-default PROJECT-/orgs/default/projects/Project2 Default Rule Allow\",\r\n                                                                        \"path\": \"/orgs/default/projects/Project2/infra/domains/default/security-policies/default-layer3-section/rules/default-rule-allow\",\r\n                                                                        \"relative_path\": \"default-rule-allow\",\r\n                                                                        \"parent_path\": \"/orgs/default/projects/Project2/infra/domains/default/security-policies/default-layer3-section\",\r\n                                                                        \"unique_id\": \"00000000-0000-0000-0000-000000001026\",\r\n                                                                        \"realization_id\": \"00000000-0000-0000-0000-000000001026\",\r\n                                                                        \"children\": [],\r\n                                                                        \"marked_for_delete\": false,\r\n                                                                        \"overridden\": false,\r\n                                                                        \"rule_id\": 1026,\r\n                                                                        \"sequence_number\": 2147483647,\r\n                                                                        \"sources_excluded\": false,\r\n                                                                        \"destinations_excluded\": false,\r\n                                                                        \"source_groups\": [\r\n                                                                            \"/orgs/default/projects/Project2/infra/domains/default/groups/default\"\r\n                                                                        ],\r\n                                                                        \"destination_groups\": [\r\n                                                                            \"/orgs/default/projects/Project2/infra/domains/default/groups/default\"\r\n                                                                        ],\r\n                                                                        \"services\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"profiles\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"logged\": false,\r\n                                                                        \"scope\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"disabled\": false,\r\n                                                                        \"direction\": \"IN_OUT\",\r\n                                                                        \"ip_protocol\": \"IPV4_IPV6\",\r\n                                                                        \"is_default\": true,\r\n                                                                        \"_create_time\": 1663015096209,\r\n                                                                        \"_create_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                                        \"_last_modified_time\": 1663015096209,\r\n                                                                        \"_last_modified_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                                        \"_system_owned\": true,\r\n                                                                        \"_protection\": \"NOT_PROTECTED\",\r\n                                                                        \"_revision\": 0\r\n                                                                    },\r\n                                                                    \"resource_type\": \"ChildRule\",\r\n                                                                    \"id\": \"default-rule-allow\",\r\n                                                                    \"marked_for_delete\": false,\r\n                                                                    \"mark_for_override\": false,\r\n                                                                    \"_protection\": \"NOT_PROTECTED\"\r\n                                                                },\r\n                                                                {\r\n                                                                    \"Rule\": {\r\n                                                                        \"action\": \"DROP\",\r\n                                                                        \"resource_type\": \"Rule\",\r\n                                                                        \"id\": \"default-rule-drop\",\r\n                                                                        \"display_name\": \"ORG-default PROJECT-/orgs/default/projects/Project2 Default Rule Drop\",\r\n                                                                        \"path\": \"/orgs/default/projects/Project2/infra/domains/default/security-policies/default-layer3-section/rules/default-rule-drop\",\r\n                                                                        \"relative_path\": \"default-rule-drop\",\r\n                                                                        \"parent_path\": \"/orgs/default/projects/Project2/infra/domains/default/security-policies/default-layer3-section\",\r\n                                                                        \"unique_id\": \"00000000-0000-0000-0000-000000001027\",\r\n                                                                        \"realization_id\": \"00000000-0000-0000-0000-000000001027\",\r\n                                                                        \"children\": [],\r\n                                                                        \"marked_for_delete\": false,\r\n                                                                        \"overridden\": false,\r\n                                                                        \"rule_id\": 1027,\r\n                                                                        \"sequence_number\": 2147483647,\r\n                                                                        \"sources_excluded\": false,\r\n                                                                        \"destinations_excluded\": false,\r\n                                                                        \"source_groups\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"destination_groups\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"services\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"profiles\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"logged\": false,\r\n                                                                        \"scope\": [\r\n                                                                            \"ANY\"\r\n                                                                        ],\r\n                                                                        \"disabled\": false,\r\n                                                                        \"direction\": \"IN_OUT\",\r\n                                                                        \"ip_protocol\": \"IPV4_IPV6\",\r\n                                                                        \"is_default\": true,\r\n                                                                        \"_create_time\": 1663015096219,\r\n                                                                        \"_create_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                                        \"_last_modified_time\": 1663015096219,\r\n                                                                        \"_last_modified_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                                        \"_system_owned\": true,\r\n                                                                        \"_protection\": \"NOT_PROTECTED\",\r\n                                                                        \"_revision\": 0\r\n                                                                    },\r\n                                                                    \"resource_type\": \"ChildRule\",\r\n                                                                    \"id\": \"default-rule-drop\",\r\n                                                                    \"marked_for_delete\": false,\r\n                                                                    \"mark_for_override\": false,\r\n                                                                    \"_protection\": \"NOT_PROTECTED\"\r\n                                                                }\r\n                                                            ],\r\n                                                            \"marked_for_delete\": false,\r\n                                                            \"overridden\": false,\r\n                                                            \"sequence_number\": 2147483647,\r\n                                                            \"internal_sequence_number\": 2147483647,\r\n                                                            \"category\": \"Application\",\r\n                                                            \"stateful\": true,\r\n                                                            \"tcp_strict\": false,\r\n                                                            \"locked\": false,\r\n                                                            \"lock_modified_time\": 0,\r\n                                                            \"scope\": [\r\n                                                                \"ANY\"\r\n                                                            ],\r\n                                                            \"is_default\": true,\r\n                                                            \"_create_time\": 1663015096177,\r\n                                                            \"_create_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                            \"_last_modified_time\": 1663015096177,\r\n                                                            \"_last_modified_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                            \"_system_owned\": true,\r\n                                                            \"_protection\": \"NOT_PROTECTED\",\r\n                                                            \"_revision\": 0\r\n                                                        },\r\n                                                        \"resource_type\": \"ChildSecurityPolicy\",\r\n                                                        \"id\": \"default-layer3-section\",\r\n                                                        \"marked_for_delete\": false,\r\n                                                        \"mark_for_override\": false,\r\n                                                        \"_protection\": \"NOT_PROTECTED\"\r\n                                                    }\r\n                                                ],\r\n                                                \"marked_for_delete\": false,\r\n                                                \"overridden\": false,\r\n                                                \"_create_time\": 1663015096159,\r\n                                                \"_create_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                \"_last_modified_time\": 1663015096159,\r\n                                                \"_last_modified_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                                \"_system_owned\": true,\r\n                                                \"_protection\": \"NOT_PROTECTED\",\r\n                                                \"_revision\": 0\r\n                                            },\r\n                                            \"resource_type\": \"ChildDomain\",\r\n                                            \"id\": \"default\",\r\n                                            \"marked_for_delete\": false,\r\n                                            \"mark_for_override\": false,\r\n                                            \"_protection\": \"NOT_PROTECTED\"\r\n                                        }\r\n                                    ],\r\n                                    \"marked_for_delete\": false,\r\n                                    \"overridden\": false,\r\n                                    \"connectivity_strategy\": \"WHITELIST\",\r\n                                    \"_create_time\": 1663015096152,\r\n                                    \"_create_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                    \"_last_modified_time\": 1663015096152,\r\n                                    \"_last_modified_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                                    \"_system_owned\": true,\r\n                                    \"_protection\": \"NOT_PROTECTED\",\r\n                                    \"_revision\": 0\r\n                                },\r\n                                \"resource_type\": \"ChildInfra\",\r\n                                \"id\": \"infra\",\r\n                                \"marked_for_delete\": false,\r\n                                \"mark_for_override\": false,\r\n                                \"_protection\": \"NOT_PROTECTED\"\r\n                            }\r\n                        ],\r\n                        \"marked_for_delete\": false,\r\n                        \"overridden\": false,\r\n                        \"_create_time\": 1663015096148,\r\n                        \"_create_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                        \"_last_modified_time\": 1663015096148,\r\n                        \"_last_modified_user\": \"org_default_admin@nsxdg.eng.vmware.com\",\r\n                        \"_system_owned\": false,\r\n                        \"_protection\": \"NOT_PROTECTED\",\r\n                        \"_revision\": 0\r\n                    },\r\n                    \"resource_type\": \"ChildProject\",\r\n                    \"id\": \"Project2\",\r\n                    \"marked_for_delete\": false,\r\n                    \"mark_for_override\": false,\r\n                    \"_protection\": \"NOT_PROTECTED\"\r\n                }\r\n            ]\r\n        }\r\n    ],\r\n    \"marked_for_delete\": false,\r\n    \"overridden\": false,\r\n    \"_protection\": \"NOT_PROTECTED\"\r\n}"
+				},
+				"url": {
+					"raw": "https://{{nsxmanager}}/policy/api/v1/org-root",
+					"protocol": "https",
+					"host": [
+						"{{nsxmanager}}"
+					],
+					"path": [
+						"policy",
+						"api",
+						"v1",
+						"org-root"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

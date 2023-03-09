@@ -1,6 +1,7 @@
 resource "nsxt_policy_tier0_gateway" "vrf-orange" {
   description              = "Tier-0 VRF provisioned by Terraform"
-  display_name             = "orange-vrf"
+  display_name             = "vrf-orange"
+  nsx_id                   = "vrf-orange"
   failover_mode            = "PREEMPTIVE"
   default_rule_logging     = false
   enable_firewall          = true

@@ -46,6 +46,7 @@ data "nsxt_policy_edge_node" "node2" {
 resource "nsxt_policy_tier0_gateway" "parent-t0" {
   description              = "VRF provisioned by Terraform"
   display_name             = "parent-t0"
+  nsx_id                   = "parent-t0"
   failover_mode            = "PREEMPTIVE"
   default_rule_logging     = false
   enable_firewall          = true

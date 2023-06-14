@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "d39a4b0c-618c-454d-9c29-211da83b3698",
-		"name": "NSX+",
+		"_postman_id": "68a1a865-3bf5-4298-bf27-7055ff04fd37",
+		"name": "NSX+ Bootcamp",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -55,12 +55,22 @@
 			"response": []
 		},
 		{
-			"name": "Get project gloabl groups",
+			"name": "Create T1",
 			"request": {
-				"method": "GET",
-				"header": [],
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tier0_path\": \"/orgs/{{org_id}}/projects/default--TPM-Dimi10/infra/tier-0s/T0-Paris--LM-Paris10\",\n    \"ha_mode\": \"ACTIVE_STANDBY\",\n    \"resource_type\": \"Tier1\",\n    \"intersite_config\": {\n        \"primary_site_path\": \"/orgs/{{org_id}}/projects/default--TPM-Dimi10/infra/sites/LM-Paris10\"\n    }\n}"
+				},
 				"url": {
-					"raw": "https://nsx-beta-nsbu02-us-west.nsbu02.vdp-stg.vmware.com/policy/orgs/{{org_id}}/projects/CF/infra/domains/global/groups",
+					"raw": "https://nsx-beta-nsbu02-us-west.nsbu02.vdp-stg.vmware.com/policy/orgs/{{org_id}}/projects/{{project_id}}/infra/tier-1s/Proj_T1_{{project_id}}",
 					"protocol": "https",
 					"host": [
 						"nsx-beta-nsbu02-us-west",
@@ -74,11 +84,48 @@
 						"orgs",
 						"{{org_id}}",
 						"projects",
-						"CF",
+						"{{project_id}}",
 						"infra",
-						"domains",
-						"global",
-						"groups"
+						"tier-1s",
+						"Proj_T1_{{project_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create VPC",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"service_gateway\": {\n        \"disable\": false,\n        \"auto_snat\": true\n    },\n    \"default_gateway_path\": \"/orgs/{{org_id}}/projects/default--TPM-Dimi10/infra/tier-0s/T0-Paris--LM-Paris10\",\n    \"site_infos\": [\n        {\n            \"edge_cluster_paths\": [\n                \"/orgs/{{org_id}}/projects/default--TPM-Dimi10/infra/sites/LM-Paris10/enforcement-points/default/edge-clusters/8e3323b1-e030-4db9-8098-c90c079c514a\"\n            ],\n            \"site_path\": \"/orgs/{{org_id}}/projects/default--TPM-Dimi10/infra/sites/LM-Paris10\"\n        }\n    ],\n    \"load_balancer_vpc_endpoint\": {},\n    \"external_ipv4_blocks\": [\n        \"/orgs/{{org_id}}/projects/default--TPM-Dimi10/infra/ip-blocks/{{project_id}}-ext-paris\"\n    ],\n    \"private_ipv4_blocks\": [\n        \"/orgs/{{org_id}}/projects/tenant-99/infra/ip-blocks/{{project_id}}-private-block\"\n    ],\n    \"ip_address_type\": \"IPV4\",\n    \"ipv6_profile_paths\": [],\n    \"subnet_profiles\": {},\n    \"dhcp_config\": {\n        \"enable_dhcp\": true\n    },\n    \"short_id\": \"loglab\"\n}"
+				},
+				"url": {
+					"raw": "https://nsx-beta-nsbu02-us-west.nsbu02.vdp-stg.vmware.com/policy/orgs/{{org_id}}/projects/{{project_id}}/vpcs/vpc-{{project_id}}",
+					"protocol": "https",
+					"host": [
+						"nsx-beta-nsbu02-us-west",
+						"nsbu02",
+						"vdp-stg",
+						"vmware",
+						"com"
+					],
+					"path": [
+						"policy",
+						"orgs",
+						"{{org_id}}",
+						"projects",
+						"{{project_id}}",
+						"vpcs",
+						"vpc-{{project_id}}"
 					]
 				}
 			},

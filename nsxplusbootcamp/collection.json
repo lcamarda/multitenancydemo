@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "d39a4b0c-618c-454d-9c29-211da83b3698",
+		"name": "NSX+",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Log In",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"acces_token\",jsonData.access_token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "refresh_token",
+							"value": "{{refresh_token}}",
+							"type": "default"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://console-stg.cloud.vmware.com/csp/gateway/am/api/auth/api-tokens/authorize",
+					"protocol": "https",
+					"host": [
+						"console-stg",
+						"cloud",
+						"vmware",
+						"com"
+					],
+					"path": [
+						"csp",
+						"gateway",
+						"am",
+						"api",
+						"auth",
+						"api-tokens",
+						"authorize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get project gloabl groups",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://nsx-beta-nsbu02-us-west.nsbu02.vdp-stg.vmware.com/policy/orgs/{{org_id}}/projects/CF/infra/domains/global/groups",
+					"protocol": "https",
+					"host": [
+						"nsx-beta-nsbu02-us-west",
+						"nsbu02",
+						"vdp-stg",
+						"vmware",
+						"com"
+					],
+					"path": [
+						"policy",
+						"orgs",
+						"{{org_id}}",
+						"projects",
+						"CF",
+						"infra",
+						"domains",
+						"global",
+						"groups"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "{{access_token}}",
+				"type": "string"
+			},
+			{
+				"key": "key",
+				"value": "csp-auth-token",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}

@@ -1,0 +1,27 @@
+{
+	"id": "c27bf5aa-11ae-4993-b650-927ba11cb1cd",
+	"name": "MultitenancyDemo",
+	"values": [
+		{
+			"key": "nsxmanager",
+			"value": "10.79.248.19:8445",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "password",
+			"value": "VMware1!VMware1!",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "edge_cluster_id",
+			"value": "9d4c32ae-25f4-47ac-a98e-74c4832869b0",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2023-10-18T17:55:49.618Z",
+	"_postman_exported_using": "Postman/10.19.0"
+}
